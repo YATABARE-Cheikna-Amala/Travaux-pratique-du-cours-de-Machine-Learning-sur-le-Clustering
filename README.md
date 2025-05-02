@@ -44,15 +44,12 @@ Ce projet montre l'importance de tester différents modèles d'apprentissage aut
 ---
 
 ### Fichiers
-- `01-classification.ipynb` : Notebook contenant le code pour la mise en œuvre des modèles et l'analyse des résultats.
-- `spam-classification.ipynb` : Notebook complémentaire pour l'analyse d'un autre dataset.
+- `tp-classification-revenue.ipynb` : Notebook contenant le code pour la mise en œuvre des modèles et l'analyse des résultats.
 - `models/xgboost_model.dill` : Le modèle XGBoost enregistré pour les prédictions futures.
 - `README.md` : Ce fichier contenant une description du projet.
 
 ---
 
-### Remerciements
-Merci à tous ceux qui ont contribué à ce projet et à la communauté open-source pour les bibliothèques utilisées (comme `scikit-learn`, `XGBoost`, `pandas`, et `matplotlib`).
 
 ---
 
