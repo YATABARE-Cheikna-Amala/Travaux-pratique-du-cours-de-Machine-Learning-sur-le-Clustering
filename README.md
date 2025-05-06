@@ -45,8 +45,8 @@ Ce projet montre l'importance de tester différents modèles d'apprentissage aut
 
 ### Fichiers
 - `tp-classification-revenue.ipynb` : Notebook contenant le code pour la mise en œuvre des modèles et l'analyse des résultats.
-- `models/xgboost_model.dill` : Le modèle XGBoost enregistré pour les prédictions futures.
-- `README.md` : Ce fichier contenant une description du projet.
+- `models/xgboost_model1.dill` : Le modèle XGBoost enregistré pour les prédictions futures.
+- `README.md` : Ce fichier contenant une description du TP.
 
 ---
 
