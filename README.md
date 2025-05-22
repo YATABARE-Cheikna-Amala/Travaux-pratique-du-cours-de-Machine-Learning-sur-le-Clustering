@@ -1,55 +1,75 @@
-# Travaux Pratiques de Machine Learning 2 - Classification
+# Travaux Pratiques de Machine Learning 2 - Clustering
 
 ## Introduction
-Ce projet présente une analyse complète de la classification à l'aide de plusieurs modèles d'apprentissage automatique, notamment **Random Forest**, **XGBoost**, **Dummy Classifier**, et **K-Nearest Neighbors (KNN)**. L'objectif est de comparer les performances des différents modèles et de sélectionner le meilleur pour résoudre le problème de classification.
+
+Ce projet porte sur une analyse non supervisée de données à l’aide d’algorithmes de **clustering**, avec un accent particulier sur **K-Means**. L’objectif principal est d’identifier des groupes naturels (clusters) au sein des données, d’optimiser les paramètres du modèle, de visualiser les résultats et d'interpréter les profils caractéristiques (personnas) issus des groupes détectés.
 
 ## Objectifs
-1. **Préparation des données** : Traitement des données pour l'entraînement des modèles, y compris la gestion des variables catégorielles et continues.
-2. **Modélisation** : Mise en œuvre des modèles **Random Forest** et **XGBoost**, ainsi que des comparaisons avec les modèles de référence **Dummy Classifier** et **KNN**.
-3. **Sélection du meilleur modèle** : Evaluation de la performance de chaque modèle sur un ensemble de données de test afin de déterminer le meilleur modèle de classification.
-4. **Interprétation des résultats** : Identification des meilleures caractéristiques (features) qui influencent le modèle de manière significative.
-5. **Enregistrement du meilleur modèle** : Sauvegarde du modèle **XGBoost** (le meilleur modèle) en format `.dill` pour une utilisation ultérieure.
+
+1. **Optimisation de K-Means** : Tester plusieurs combinaisons d’hyperparamètres, notamment :
+   - le nombre de clusters (`k`),
+   - l’algorithme d’initialisation (`init`),
+   - le nombre d’itérations.
+2. **Évaluation de l’effet de la réduction de dimension** :
+   - Comparaison des performances avec ou sans **PCA** (analyse en composantes principales).
+3. **Standardisation des données** :
+   - Étude de l’effet de différents scalers : `StandardScaler`, `MinMaxScaler`, `RobustScaler`, ou sans standardisation.
+4. **Sélection du meilleur modèle** :
+   - Basée sur des métriques comme le **Silhouette Score**, l’**inertie**, ou d’autres critères de cohérence des clusters.
+5. **Visualisation des clusters** :
+   - Utilisation de **t-SNE** pour réduire les données à 2 dimensions et afficher la répartition des clusters.
+6. **Analyse des profils moyens (personnas)** :
+   - Calcul de l’image moyenne ou du profil moyen associé à chaque cluster.
 
 ## Méthodologie
 
-### Préparation des données
-Les données ont été soigneusement nettoyées et préparées pour l'entraînement des modèles. Cela inclut la gestion des valeurs manquantes, le codage des variables catégorielles, et la normalisation des caractéristiques lorsque nécessaire.
+### 1. Préparation des données
 
-### Modélisation
-1. **Dummy Classifier** : Utilisé comme base de référence pour évaluer la performance des autres modèles.
-2. **K-Nearest Neighbors (KNN)** : Un modèle de classification simple basé sur la proximité des données.
-3. **Random Forest** : Un modèle d'ensemble qui utilise plusieurs arbres de décision pour améliorer la performance et la robustesse.
-4. **XGBoost** : Un algorithme d'apprentissage en gradient boosting qui a montré des résultats supérieurs dans les tests.
+Les données ont été prétraitées via différentes méthodes de **standardisation** selon les paramètres testés. Ensuite, la réduction de dimension avec **PCA** a été appliquée (ou non), en fonction de la configuration.
 
-### Choix du meilleur modèle
-Après avoir testé tous les modèles, **XGBoost** a été sélectionné comme le meilleur modèle en raison de sa performance supérieure en termes de **accuracy**, **precision**, **recall**, et **F1-score**. 
+### 2. Modélisation avec K-Means
 
-### Sélection des meilleures caractéristiques
-Les caractéristiques les plus influentes pour la prédiction ont été extraites et analysées. Ces caractéristiques ont été utilisées pour affiner le modèle et améliorer ses performances.
+Une grille de recherche manuelle a été effectuée en faisant varier :
+- `k` : nombre de clusters (de 2 à 15),
+- `init` : `k-means++` ou `random`,
+- application ou non de PCA.
 
-### Sauvegarde du modèle
-Le modèle **XGBoost** a été sauvegardé en format `.dill` pour un usage futur, facilitant ainsi sa réutilisation sans nécessiter de nouvel entraînement.
+Chaque combinaison a été évaluée sur ses performances de clustering.
+
+### 3. Visualisation avec t-SNE
+
+Une visualisation en 2D a été générée à partir de t-SNE, permettant d’observer la distribution des clusters obtenus pour le meilleur modèle.
+
+### 4. Analyse des Personnas
+
+Pour chaque cluster, un **profil moyen** a été calculé :
+- Moyenne des observations appartenant au cluster.
+- Visualisation de l’image moyenne associée (si données imagées).
+- Interprétation des caractéristiques dominantes du groupe.
 
 ## Résultats
-Les performances des différents modèles ont été comparées, et voici les résultats principaux :
-- Le modèle **XGBoost** a obtenu les meilleures performances, surpassant le **Random Forest** et les autres modèles.
-- Le modèle **KNN** et le **Dummy Classifier** ont montré des résultats plus faibles, ce qui a renforcé l'importance de l'utilisation des modèles plus complexes comme **XGBoost**.
 
-## Enregistrement du Modèle
-Le meilleur modèle, **XGBoost**, a été enregistré dans le fichier `models/xgboost_model.dill`. Ce fichier contient le modèle entraîné, prêt à être utilisé pour de futures prédictions.
+- Le meilleur modèle a été sélectionné en fonction du **meilleur compromis** entre cohérence interne (silhouette), dispersion (inertie) et lisibilité des clusters.
+- L’application de **PCA (80%)** et de **StandardScaler** a souvent permis d'améliorer la séparation des clusters.
+- Les clusters trouvés présentaient des profils distincts, visualisables avec t-SNE.
+- Les **images moyennes par cluster** ont été extraites et interprétées comme des personnas typiques.
+
+## Visualisation
+
+- **t-SNE** : Réduction à 2D pour visualiser les clusters.
+- **Images moyennes par cluster** : Représentations visuelles synthétiques.
+- **Métriques** : Courbes du silhouette score, courbe d’inertie (`elbow`).
 
 ## Conclusion
-Ce projet montre l'importance de tester différents modèles d'apprentissage automatique et de sélectionner celui qui offre les meilleures performances en fonction des critères de classification. Le modèle **XGBoost** a été choisi comme étant le plus performant pour ce problème spécifique, et il est désormais enregistré pour un usage ultérieur.
 
----
+Ce projet montre l’importance :
+- De tester différentes configurations pour le clustering non supervisé.
+- D’appliquer des méthodes de prétraitement adaptées (scaling, réduction de dimension).
+- De visualiser et interpréter les résultats pour une compréhension concrète des groupes détectés.
 
-### Fichiers
-- `tp-classification-revenue.ipynb` : Notebook contenant le code pour la mise en œuvre des modèles et l'analyse des résultats.
-- `models/xgboost_model1.dill` : Le modèle XGBoost enregistré pour les prédictions futures.
-- `README.md` : Ce fichier contenant une description du TP.
+## Fichiers
 
----
-
+- `Clustering.ipynb` : Notebook principal contenant les tests de K-Means, les visualisations t-SNE, les calculs de silhouette, et l’analyse des clusters.
 
 ---
 
